@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { IUser } from '../../core/interfaces/iuser';
 import { SpecificUser } from '../../core/services/specific-user/specific-user';
 import { CommonModule, DatePipe } from '@angular/common';
+import { Loading } from '../../core/services/loading/loading';
 
 @Component({
   selector: 'app-details',
@@ -13,8 +14,8 @@ import { CommonModule, DatePipe } from '@angular/common';
 export class Details implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly specificUserService = inject(SpecificUser);
-
-  constructor(private cdr: ChangeDetectorRef) {}
+  private readonly loadingService = inject(Loading);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   user: IUser | null = null;
   loading = true;
@@ -25,12 +26,13 @@ export class Details implements OnInit {
 
   getUserDetails(): void {
     const id = Number(this.activatedRoute.snapshot.params['id']);
-
+    this.loadingService.show();
     this.specificUserService.getUserData(id).subscribe({
       next: (res) => {
         console.log('User Data:', res);
         this.user = res;
         this.loading = false;
+        this.loadingService.hide();
         this.cdr.detectChanges(); // 👈 يحل المشكلة
       },
       error: (err) => {

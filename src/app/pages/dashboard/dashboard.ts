@@ -5,13 +5,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { Observable, map } from 'rxjs';
+import { Observable, finalize, map } from 'rxjs';
 import { UserData } from '../../core/services/users/user-data';
 import { IUser } from '../../core/interfaces/iuser';
 import { UserSearchPipe } from '../../core/pipe/user-search-pipe';
 import { Menu } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { Loading } from '../../core/services/loading/loading';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,6 +32,7 @@ import { Router } from '@angular/router';
 export class Dashboard implements OnInit {
   private readonly userDataServices = inject(UserData);
   private readonly router = inject(Router);
+  private readonly loadingService = inject(Loading);
 
   userData$!: Observable<IUser[]>;
   totalRecords$!: Observable<number>;
@@ -47,9 +49,19 @@ export class Dashboard implements OnInit {
   }
 
   loadData() {
-    const response$ = this.userDataServices.getUserData(this.rows, this.first);
+    this.loadingService.show();
+
+    const response$ = this.userDataServices
+      .getUserData(this.rows, this.first)
+      .pipe(finalize(() => this.loadingService.hide()));
+
     this.userData$ = response$.pipe(map((res) => res.users));
-    response$.subscribe((res) => (this.totalRecords = res.total));
+
+    response$.subscribe({
+      next: (res) => {
+        this.totalRecords = res.total;
+      },
+    });
   }
 
   onPageChange(event: any) {
