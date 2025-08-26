@@ -17,6 +17,7 @@ import { ROLES } from '../../core/constants/role.constants';
 import { UserSortPipe } from '../../core/pipe/sort/user-sort-pipe';
 import { SORT_OPTIONS, SortOptionValue } from '../../core/constants/sort.constants';
 import { SearchService } from '../../core/services/search/search';
+import { Topbar } from '../../shared/components/ui/topbar/topbar';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,6 +31,7 @@ import { SearchService } from '../../core/services/search/search';
     UserSearchPipe,
     Menu,
     UserSortPipe,
+    Topbar,
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
