@@ -43,6 +43,29 @@
         </td>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
+        <td>
+          <div class="flex justify-center">
+            <p-menu
+              #menu
+              [model]="menuItems[user.id]"
+              [popup]="true"
+              [style]="{
+                'min-width': '150px',
+                'font-size': '12px',
+                'text-align': 'center',
+              }"
+              [appendTo]="'body'"
+            ></p-menu>
+
+            <button
+              pButton
+              icon="pi pi-ellipsis-v"
+              class="p-button-text p-button-rounded p-button-sm action-button"
+              (click)="menu.toggle($event)"
+              aria-label="Actions"
+            ></button>
+          </div>
+        </td>
       </tr>
     </ng-template>
 
@@ -58,7 +81,9 @@
               </button>
             </li>
             <li>
-              <button class="tabel-btn" (click)="goToNext()">Next ></button>
+              <button class="tabel-btn" (click)="goToNext()" [disabled]="isLastPage()">
+                Next >
+              </button>
             </li>
           </ul>
         </td>

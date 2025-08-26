@@ -1,1 +1,92 @@
-<p>details works!</p>
+<section class="container">
+  <div class="flex justify-content-between align-items-center">
+    <div class="flex align-items-center gap-5">
+      <h1>User #{{ user?.id }}</h1>
+      <span class="status px-2 py-1 rounded-lg font-semibold bg-blue-100 text-blue-700">
+        {{ user?.role }}
+      </span>
+    </div>
+    <div class="back-btn">
+      <a [routerLink]="'/dashboard'"><i class="pi pi-arrow-left mr-2"></i>Back</a>
+    </div>
+  </div>
+
+  <div class="my-8 details">
+    <!-- Header -->
+    <div class="head md:flex md:justify-content-between p-5">
+      <div class="flex align-items-center gap-3">
+        <img [src]="user?.image" alt="profile" class="w-16 h-16 rounded-full shadow-md" />
+        <p class="text-lg font-semibold">
+          {{ user?.firstName }} {{ user?.lastName }} ({{ user?.username }})
+        </p>
+      </div>
+      <div>
+        <p>Born: {{ user?.birthDate | date : 'MMM dd, yyyy' }} ({{ user?.age }} yrs)</p>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="body pl-8">
+      <!-- Contact Info -->
+      <div class="info md:flex align-items-center gap-5 py-5">
+        <span class="icn p-3"><i class="pi pi-envelope text-xl"></i></span>
+        <p>{{ user?.email }}</p>
+        <span>.</span>
+        <p>{{ user?.phone }}</p>
+      </div>
+
+      <!-- Address -->
+      <div class="info flex align-items-center gap-5 py-5">
+        <span class="icn"><i class="pi pi-map-marker"></i></span>
+        <p>
+          {{ user?.address?.address }}, {{ user?.address?.city }}, {{ user?.address?.state }} ({{
+            user?.address?.country
+          }})
+        </p>
+      </div>
+
+      <!-- Company -->
+      <div class="info flex align-items-center gap-5 py-5">
+        <span class="icn"><i class="pi pi-briefcase"></i></span>
+        <p>
+          {{ user?.company?.title }} @ {{ user?.company?.name }} ({{ user?.company?.department }})
+        </p>
+      </div>
+
+      <!-- Bank -->
+      <div
+        class="money md:flex align-items-center justify-content-between gap-5 p-6 mr-8"
+        style="background: var(--color-blue-50); color: var(--color-blue-700)"
+      >
+        <div>
+          <h4 class="flex align-items-center gap-2">
+            <span class="dollar"><i class="pi pi-credit-card"></i></span>
+            Bank Info
+          </h4>
+          <p>{{ user?.bank?.cardType }} - **** {{ user?.bank?.cardNumber?.slice(-4) }}</p>
+          <p>Expires: {{ user?.bank?.cardExpire }}</p>
+        </div>
+        <h4 class="uppercase">{{ user?.bank?.currency }}</h4>
+      </div>
+
+      <!-- Other Info -->
+      <div class="py-6">
+        <p class="flex justify-content-end pr-8">
+          Works at {{ user?.company?.name }}, Studied at {{ user?.university }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="btns flex justify-content-end gap-3">
+    <button [routerLink]="'/dashboard'" class="p-btn bg-white text-gray-500 back-btn">Back</button>
+  </div>
+</section>
+
+<!-- Loading State -->
+<ng-template #loadingTpl>
+  <div class="flex justify-center items-center py-10">
+    <p>Loading user details...</p>
+  </div>
+</ng-template>
