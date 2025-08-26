@@ -4,3 +4,7 @@
 // 2. Base
 @use './styles/base/base' as *;
 @use './styles/base/typography' as *;
+@use './styles/base/btn-filter' as *;
+
+// 3. Layout/Partials
+@use './styles/partials/layout' as *;

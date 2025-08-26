@@ -3,9 +3,10 @@ import { RouterOutlet } from '@angular/router';
 import { Loading } from './core/services/loading/loading';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { AsyncPipe } from '@angular/common';
+import { Topbar } from './shared/components/ui/topbar/topbar';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProgressSpinner, AsyncPipe],
+  imports: [RouterOutlet, ProgressSpinner, AsyncPipe, Topbar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

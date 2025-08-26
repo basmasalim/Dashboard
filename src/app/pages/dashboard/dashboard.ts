@@ -8,11 +8,14 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Observable, finalize, map } from 'rxjs';
 import { UserData } from '../../core/services/users/user-data';
 import { IUser } from '../../core/interfaces/iuser';
-import { UserSearchPipe } from '../../core/pipe/user-search-pipe';
+import { UserSearchPipe } from '../../core/pipe/serach/user-search-pipe';
 import { Menu } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Loading } from '../../core/services/loading/loading';
+import { ROLES } from '../../core/constants/role.constants';
+import { UserSortPipe } from '../../core/pipe/sort/user-sort-pipe';
+import { SORT_OPTIONS, SortOptionValue } from '../../core/constants/sort.constants';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,6 +28,7 @@ import { Loading } from '../../core/services/loading/loading';
     ConfirmDialogModule,
     UserSearchPipe,
     Menu,
+    UserSortPipe,
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
@@ -42,6 +46,11 @@ export class Dashboard implements OnInit {
   first: number = 0;
   rows: number = 7;
   totalRecords: number = 0;
+  roles = ROLES;
+
+  sortOptions = SORT_OPTIONS;
+  selectedSort: SortOptionValue | '' = '';
+  filteredRole = '';
 
   ngOnInit() {
     this.loadData();
@@ -107,5 +116,14 @@ export class Dashboard implements OnInit {
         ];
       });
     });
+  }
+
+  // ? =============================> Filter Btn
+  // onRoleChange(role: UserRole | '') {
+  //   this.selectedRole = role;
+  // }
+
+  applyRoleFilter(role: string) {
+    this.filteredRole = role;
   }
 }
