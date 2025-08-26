@@ -10,8 +10,12 @@ export class UserSearchPipe implements PipeTransform {
     if (!searchTerm) return users;
 
     const term = searchTerm.toLowerCase();
+
     return users.filter(
-      (u) => u.firstName.toLowerCase().includes(term) || u.lastName.toLowerCase().includes(term)
+      (u) =>
+        u.firstName.toLowerCase().includes(term) ||
+        u.lastName.toLowerCase().includes(term) ||
+        u.id.toString().includes(term) // ✅ search by id
     );
   }
 }
