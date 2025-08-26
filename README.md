@@ -78,11 +78,11 @@ ng build --configuration production
 
 ### Dashboard
 
-![Dashboard Screenshot](./screenshots/dashboard.png)
+<img width="1879" height="843" alt="image" src="https://github.com/user-attachments/assets/cdff77a3-9733-42db-b5dd-ddd47a1f20b1" />
 
 ### User Details
 
-![User Details Screenshot](./screenshots/details.png)
+<img width="1539" height="762" alt="image" src="https://github.com/user-attachments/assets/4f0baa3d-a78f-44e6-85d7-fd8db30c8d73" />
 
 ---
 
