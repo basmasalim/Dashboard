@@ -16,6 +16,7 @@ import { Loading } from '../../core/services/loading/loading';
 import { ROLES } from '../../core/constants/role.constants';
 import { UserSortPipe } from '../../core/pipe/sort/user-sort-pipe';
 import { SORT_OPTIONS, SortOptionValue } from '../../core/constants/sort.constants';
+import { SearchService } from '../../core/services/search/search';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,10 +38,12 @@ export class Dashboard implements OnInit {
   private readonly userDataServices = inject(UserData);
   private readonly router = inject(Router);
   private readonly loadingService = inject(Loading);
+  private readonly searchService = inject(SearchService);
 
   userData$!: Observable<IUser[]>;
   totalRecords$!: Observable<number>;
   menuItems: { [key: string]: MenuItem[] } = {};
+  searchTermB = '';
 
   searchTerm: string = '';
   first: number = 0;
@@ -51,10 +54,12 @@ export class Dashboard implements OnInit {
   sortOptions = SORT_OPTIONS;
   selectedSort: SortOptionValue | '' = '';
   filteredRole = '';
+  searchTerm$ = this.searchService.searchTerm$;
 
   ngOnInit() {
     this.loadData();
     this.prepareMenuItems();
+    // this.onSearch();
   }
 
   loadData() {
@@ -119,11 +124,12 @@ export class Dashboard implements OnInit {
   }
 
   // ? =============================> Filter Btn
-  // onRoleChange(role: UserRole | '') {
-  //   this.selectedRole = role;
-  // }
 
   applyRoleFilter(role: string) {
     this.filteredRole = role;
+  }
+
+  get activeSearchTerm(): string {
+    return this.searchTerm || this.searchTermB || '';
   }
 }

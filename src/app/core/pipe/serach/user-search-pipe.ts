@@ -5,7 +5,7 @@ import { IUser } from '../../interfaces/iuser';
   name: 'userSearch',
 })
 export class UserSearchPipe implements PipeTransform {
-  transform(users: IUser[] | null, searchTerm: string, role: string): IUser[] {
+  transform(users: IUser[] | null, searchTerm: string, role?: string): IUser[] {
     if (!users) return [];
 
     let filtered = users;
@@ -14,10 +14,7 @@ export class UserSearchPipe implements PipeTransform {
     if (searchTerm) {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(
-        (u) =>
-          u.firstName.toLowerCase().includes(term) ||
-          u.lastName.toLowerCase().includes(term) ||
-          u.id.toString().includes(term)
+        (u) => u.firstName.toLowerCase().includes(term) || u.lastName.toLowerCase().includes(term)
       );
     }
 

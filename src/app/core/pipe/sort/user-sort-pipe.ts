@@ -5,17 +5,14 @@ import { IUser } from '../../interfaces/iuser';
   name: 'userSort',
 })
 export class UserSortPipe implements PipeTransform {
-  transform(users: IUser[] | null, sortOrder: string): IUser[] {
+  transform(users: IUser[] | null, sort: 'asc' | 'desc' | '' = ''): IUser[] {
     if (!users) return [];
+    if (!sort) return users;
 
-    if (sortOrder === 'asc') {
-      return [...users].sort((a, b) => a.firstName.localeCompare(b.firstName));
-    }
-
-    if (sortOrder === 'desc') {
-      return [...users].sort((a, b) => b.firstName.localeCompare(a.firstName));
-    }
-
-    return users;
+    return [...users].sort((a, b) =>
+      sort === 'asc'
+        ? a.firstName.localeCompare(b.firstName)
+        : b.firstName.localeCompare(a.firstName)
+    );
   }
 }

@@ -3,6 +3,17 @@
     <ng-template #end>
       <div class="container">
         <ul class="flex items-center gap-2 p-2">
+          <li>
+            <!-- search -->
+            <div class="ml-auto lg:ml-0">
+              <input
+                type="text"
+                placeholder="Search ..."
+                (input)="onSearch($event)"
+                class="input-g w-28rem"
+              />
+            </div>
+          </li>
           <li class="img">
             <p-avatar
               image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png"

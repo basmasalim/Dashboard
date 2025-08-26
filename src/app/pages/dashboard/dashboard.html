@@ -1,7 +1,12 @@
 <div class="card">
   <p-table
     class="custom-table m-auto"
-    [value]="userData$ | async | userSearch : searchTerm : filteredRole | userSort : selectedSort"
+    [value]="
+      userData$
+        | async
+        | userSearch : (searchTerm$ | async) ?? '' : filteredRole
+        | userSort : selectedSort
+    "
     [paginator]="true"
     [rows]="rows"
     [totalRecords]="(totalRecords$ | async) || 0"
