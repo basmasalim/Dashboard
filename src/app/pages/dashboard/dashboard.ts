@@ -60,7 +60,7 @@ export class Dashboard implements OnInit {
 
   ngOnInit() {
     this.loadData();
-    this.prepareMenuItems();
+    // this.prepareMenuItems();
     // this.onSearch();
   }
 
@@ -76,6 +76,7 @@ export class Dashboard implements OnInit {
     response$.subscribe({
       next: (res) => {
         this.totalRecords = res.total;
+        this.prepareMenuItems(res.users); // ✅ تحديث المينيو مع كل صفحة
       },
     });
   }
@@ -108,20 +109,22 @@ export class Dashboard implements OnInit {
     return this.first + this.rows >= this.totalRecords;
   }
 
+  get lastRecord(): number {
+    return Math.min(this.first + this.rows, this.totalRecords);
+  }
+
   // ? =============================> Context Menu
-  prepareMenuItems() {
-    this.userData$?.subscribe((users) => {
-      users.forEach((user) => {
-        this.menuItems[user.id] = [
-          {
-            label: 'See details',
-            icon: 'pi pi-eye mr-2',
-            command: () => {
-              this.router.navigate(['/userDetails', user.id]);
-            },
+  prepareMenuItems(users: IUser[]) {
+    users.forEach((user) => {
+      this.menuItems[user.id] = [
+        {
+          label: 'See details',
+          icon: 'pi pi-eye mr-2',
+          command: () => {
+            this.router.navigate(['/userDetails', user.id]);
           },
-        ];
-      });
+        },
+      ];
     });
   }
 
