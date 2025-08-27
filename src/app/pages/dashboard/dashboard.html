@@ -22,17 +22,6 @@
         <h1>All users</h1>
 
         <ul class="button-group ml-auto lg:ml-0">
-          <li>
-            <!-- search -->
-            <div class="ml-auto lg:ml-0">
-              <input
-                type="text"
-                placeholder="Search ..."
-                [(ngModel)]="searchTerm"
-                class="input-g w-28rem"
-              />
-            </div>
-          </li>
           <li class="btns flex align-content-center border-round-md mx-4">
             @for (role of roles; track $index) {
             <div>
